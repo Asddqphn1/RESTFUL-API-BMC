@@ -34,7 +34,7 @@ class PasienController extends Controller
     }
 
     $customClaims = [
-        'sub' => (string) $pasien->id,
+        'sub' => (string) $pasien->no_reg,
         'role' => 'pasien',
         'username' => $pasien->username,
         'nama' => $pasien->nama,

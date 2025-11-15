@@ -15,6 +15,8 @@ return new class extends Migration
         // 1️⃣ Buat enum type di PostgreSQL
         DB::statement("CREATE TYPE protein_enum AS ENUM ('-', '+', '++', '+++')");
         DB::statement("CREATE TYPE aseton_enum AS ENUM ('-', '+')");
+        DB::statement("CREATE TYPE molase_enum AS ENUM ('0', '1', '2', '3')");
+        DB::statement("CREATE TYPE airketuban_enum AS ENUM ('j', 'h', 'm')");
 
         // 2️⃣ Buat table
         Schema::create('catatan_partograf', function (Blueprint $table) {
@@ -31,7 +33,8 @@ return new class extends Migration
             $table->enum('protein', ['-', '+', '++', '+++'])->nullable();
             $table->decimal('volume_urine')->nullable();
             $table->string('obat_cairan', 100)->nullable();
-            $table->string('molase', 25)->nullable();
+            $table->enum('air_ketuban', ['j', 'h', 'm'])->nullable();
+            $table->enum('molase', ['0', '1', '2', '3'])->nullable();
             $table->string('partograf_id', 25)->nullable();
         });
     }

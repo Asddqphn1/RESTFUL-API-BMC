@@ -54,26 +54,28 @@ class ProfileController extends Controller
         ], 401);
     }
 
-    // 🔹 Validasi per jenis user
     if ($user instanceof \App\Models\Bidan) {
         $validated = $request->validate([
-            'username' => 'sometimes|string|max:25|unique:bidan,username,' . $user->id,
+            'username' => 'sometimes|string|max:25|unique:bidan,username,' . $user->id . ',id',
         ]);
     } else {
         $validated = $request->validate([
-            'username' => 'sometimes|string|max:25|unique:pasien,username,' . $user->no_reg,
-            'alamat' => 'sometimes|string|max:25',
-            'umur' => 'sometimes|numeric',
+            'username' => 'sometimes|string|max:25|unique:pasien,username,' . $user->no_reg . ',no_reg',
+            'alamat'   => 'sometimes|string|max:25',
+            'umur'     => 'sometimes|numeric',
         ]);
     }
 
-    // Kalau body kosong (nggak ada field yang dikirim)
     if (empty($validated)) {
         return response()->json([
             'status' => 'error',
             'message' => 'Tidak ada data yang diubah',
         ], 400);
     }
+
+    // Update data
+    $user->update($validated);
+
     if ($user instanceof \App\Models\Pasien) {
         $data = [
             'no_reg' => $user->no_reg,
@@ -82,12 +84,8 @@ class ProfileController extends Controller
             'umur' => $user->umur,
         ];
     } else {
-        // Kalau bidan, bisa tampilkan semua atau pilih field lain sesuai kebutuhan
         $data = $user;
     }
-
-    // 🛠️ Update data
-    $user->update($validated);
 
     return response()->json([
         'status' => 'success',

@@ -32,6 +32,7 @@ class CatatanPartograf extends Model
         'protein',
         'volume_urine',
         'obat_cairan',
+        'air_ketuban',
         'molase',
         'partograf_id',
     ];
@@ -64,7 +65,8 @@ class CatatanPartograf extends Model
             'protein' => 'nullable|in:-,+,++,+++',
             'volume_urine' => 'nullable|numeric',
             'obat_cairan' => 'nullable|string|max:100',
-            'molase' => 'nullable|string|max:25',
+            'air_ketuban' => 'nullable|in:j,h,m',
+            'molase' => 'nullable|in:0,1,2,3',
         ]);
 
         if ($validator->fails()) {
