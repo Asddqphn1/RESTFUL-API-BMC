@@ -8,10 +8,11 @@
     },
     "routes": [
         {
-            "src": "/(.*)",
+            "src": "/api/(.*)",
             "dest": "/routes/app.php"
         }
     ],
+
     "env": {
         "APP_ENV": "production",
         "APP_DEBUG": "true",
