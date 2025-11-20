@@ -62,4 +62,20 @@ class PasienController extends Controller
 
         return response()->json($result, $status);
     }
+
+    public function getPasienById($noReg)
+    {
+        $pasien = $this->pasienService->getPasienWithPersalinan($noReg);
+
+        if (!$pasien) {
+            return response()->json([
+                'message' => 'Pasien tidak ditemukan'
+            ], 404);
+        }
+
+        return response()->json([
+            'message' => 'Data pasien ditemukan',
+            'data'    => $pasien
+        ], 200);
+    }
 }

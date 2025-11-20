@@ -36,6 +36,9 @@ Route::middleware([JwtCookieMiddleware::class])->group(function () {
     //
     Route::get('/pasien/{no_reg}/catatan-partograf-terbaru', [CatatanPartografController::class, 'getCatatanPartografPasien']);
 
+    //get data pasien by no_reg
+    Route::get('/pasien/{no_reg}/getData', [PasienController::class, 'getPasienById']);
+
 
     // Konten Edukasi untuk Pasien
     Route::get('/konten-edukasi', [KontenEdukasiController::class, 'index']);
